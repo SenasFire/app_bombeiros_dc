@@ -1,0 +1,21 @@
+# Arquivo orquestrador, como a dockerfile será utilizada:
+services:
+  # Container php:
+  php:
+    # Pasta atual
+    build: .
+    ports:
+      # 80 da minha máquina e 80 do container:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./www:/var/www/html
+    links:
+      - db
+  db:
+    image: mysql:8.0
+    volumes: 
+      - /var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=myrootpass
+      - MYSQL_DATABASE=mydb
